@@ -19,10 +19,9 @@ Route::post('login', [UserController::class, 'login']);
 Route::get('login', [UserController::class, 'index'])->name('login');
 
 Route::middleware('auth:api')->group(function () {
-    // Admin Api Routing
-    Route::get('users', [UserController::class, 'showAll']);
-    Route::post('user', [UserController::class, 'edit']);
-    
+    Route::put('user', [UserController::class, 'update']);
+    Route::get('user', [UserController::class, 'showAll']);
+    Route::post('user', [UserController::class, 'store']);
+    Route::delete('user/{id}', [UserController::class, 'destroy']);
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
-    Route::get('/user', function (Request $request) {return $request->user();});
 });
