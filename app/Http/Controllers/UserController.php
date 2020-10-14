@@ -47,6 +47,9 @@ class UserController extends Controller
             'email' => 'required|unique:users,email',
             'role' => 'required',
             'password' => 'required'
+        ],
+        [
+            'email.unique' => 'Username has already been taken',
         ]);
 
         $dataInsert = [
@@ -85,6 +88,9 @@ class UserController extends Controller
         $validatedData = $this->validate($request,[
             'email' => ($user->email == $request['email']) ? '' : 'required|unique:users,email',
             'role' => 'required',
+        ],
+        [
+            'email.unique' => 'Username has already been taken',
         ]);
 
         $dataUpdate = [
