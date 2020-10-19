@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KreditController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,10 @@ Route::middleware('auth:api')->group(function () {
     Route::put('user', [UserController::class, 'update']);
     Route::get('user', [UserController::class, 'showAll']);
     Route::post('user', [UserController::class, 'store']);
+
+    Route::get('kredit', [KreditController::class, 'index']);
+    Route::post('kredit', [KreditController::class, 'store']);
+
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
     Route::delete('user/{id}', [UserController::class, 'destroy']);
 });
