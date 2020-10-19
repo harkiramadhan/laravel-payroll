@@ -16,17 +16,28 @@ class KreditController extends Controller
         foreach($dataPegawai as $row){
             $count = Kredit::select(Kredit::raw("sum(replace(total, '.', '')) as jumlah"))
                     ->where('idpegawai', $row->idguru)
-                    ->whereMonth('date', '10')
+                    ->whereMonth('date', date('m'))
                     ->get()->first();
 
             $content = [
                 'idguru' => $row->idguru,
                 'nama' => $row->nama,
                 'nama_lembaga' => $row->nama_lembaga,
-                'total' => $count->jumlah
+                'total' => $count->jumlah,
             ];
             $data[] = $content;
         }
+        return response()->json($data, $this->successStatus);
+    }
+
+    public function showAll(){
+        $get = Kredit::select(Kredit::raw("sum(replace(total, '.', '')) as jumlah"))
+                    ->whereMonth('date', date('m'))
+                    ->get()->first();
+        $data = [
+            'total' => $get->jumlah,
+            'bulan' => bulan(date('m'))
+        ];
         return response()->json($data, $this->successStatus);
     }
 

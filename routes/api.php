@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KreditController;
+use App\Models\Kredit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('user', [UserController::class, 'store']);
 
     Route::get('kredit', [KreditController::class, 'index']);
+    Route::get('kredit/all', [KreditController::class, 'showAll']);
     Route::post('kredit', [KreditController::class, 'store']);
 
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
