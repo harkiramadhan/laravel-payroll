@@ -27,6 +27,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('kredit', [KreditController::class, 'index']);
     Route::get('kredit/all', [KreditController::class, 'showAll']);
+    Route::get('kredit/detail/{id}', [KreditController::class, 'show']);
     Route::post('kredit', [KreditController::class, 'store']);
 
     Route::post('logout', [UserController::class, 'logout'])->name('logout');

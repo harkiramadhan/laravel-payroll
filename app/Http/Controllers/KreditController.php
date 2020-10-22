@@ -66,7 +66,28 @@ class KreditController extends Controller
 
     public function show($id)
     {
-        //
+        $get = Kredit::select(Kredit::raw("sum(replace(total, '.', '')) as jumlah"))
+                    ->where('idpegawai', $id)
+                    ->whereMonth('date', date('m'))
+                    ->get()->first();
+
+        $all = Kredit::where('idpegawai', $id)
+                    ->whereMonth('date', date('m'))
+                    ->orderBy('date', 'desc')
+                    ->get()->all();
+
+        foreach($all as $a){
+            $kredits[] = [
+                'total' => $a->total,
+                'date' => longdate_indo($a->date)
+            ];
+        }
+        $data = [
+            'total' => $get->jumlah,
+            'kredit' => $kredits,
+            'bulan' => bulan(date('m'))
+        ];
+        return response()->json($data, $this->successStatus);
     }
 
     public function edit($id)
