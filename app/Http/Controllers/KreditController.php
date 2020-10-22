@@ -34,8 +34,11 @@ class KreditController extends Controller
         $get = Kredit::select(Kredit::raw("sum(replace(total, '.', '')) as jumlah"))
                     ->whereMonth('date', date('m'))
                     ->get()->first();
+
+    $dataPegawai = json_decode(file_get_contents("http://kepegawaian.dqakses.id/api/pegawai_kompleks"));
         $data = [
             'total' => $get->jumlah,
+            'totalPegawai' => count($dataPegawai),
             'bulan' => bulan(date('m'))
         ];
         return response()->json($data, $this->successStatus);
